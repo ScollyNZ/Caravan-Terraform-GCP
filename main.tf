@@ -19,15 +19,24 @@ resource "google_compute_subnetwork" "caravan-australia" {
   name          = "caravan-australia"
   ip_cidr_range = "10.2.0.0/16"
   region        = "australia-southeast2"
-  network       = google_compute_network.vpc_network.id
+  network       = google_compute_network.vpc-network.id
 }
 
-resource "google_compute_network" "vpc_network" {
-  name                    = "terraform-network"
+resource "google_pubsub_topic" "caravan_solar_telemetry" {
+  name = "caravan_solar_telemetry"
+}
+
+resource "google_compute_network" "vpc-network" {
+  name                    = "vpc-network"
   auto_create_subnetworks = false
 }
 
-resource "google_cloudiot_registry" "solar-device-registry" {
-  name   = "solar-device-registry"
+resource "google_cloudiot_registry" "solar_device_registry" {
+  name   = "solar_device_registry"
   region = "asia-east1"
+
+  event_notification_configs {
+    pubsub_topic_name = google_pubsub_topic.caravan_solar_telemetry.id
+    subfolder_matches = ""
+  }
 }
