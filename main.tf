@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("gcp-credentials-scollynz-rare-palace-329321.json")
+  credentials = file("scollynz-rare-palace-329321-gcp-credentials.json")
 
   project = "rare-palace-329321"
   region  = "australia-southeast"
