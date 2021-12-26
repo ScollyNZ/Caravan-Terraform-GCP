@@ -26,3 +26,8 @@ resource "google_compute_network" "vpc_network" {
   name                    = "terraform-network"
   auto_create_subnetworks = false
 }
+
+resource "google_cloudiot_registry" "solar-device-registry" {
+  name   = "solar-device-registry"
+  region = "asia-east1"
+}
